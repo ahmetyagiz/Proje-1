@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
+/// <summary>
+/// Bu kod button grid oluþturulmasýný ve buttonlara event eklenmesini saðlar.  
+/// </summary>
 public class CreateGridManager : MonoBehaviour
 {
     private int gridSize = 5; // Grid boyutu
@@ -13,7 +17,8 @@ public class CreateGridManager : MonoBehaviour
     private const int targetMarkedCount = 3; // Gizlemek için gereken iþaretli hücre sayýsý
     private bool[,] visited; // Hücrelerin ziyaret edilip edilmediðini takip etmek için
 
-    [SerializeField] private InputFieldManager inputFieldManager; // Zenject ile yönetilecek
+    [Inject]
+    private InputFieldManager _inputFieldManager;
 
     private void Start()
     {
@@ -23,7 +28,7 @@ public class CreateGridManager : MonoBehaviour
     public void GenerateGrid()
     {
         DestroyOldGrid();
-        gridSize = inputFieldManager.ReadLastInput();
+        gridSize = _inputFieldManager.ReadLastInput();
         CreateBoolGrid();
         InitializeGridArray();
         CreateCells();
@@ -89,6 +94,7 @@ public class CreateGridManager : MonoBehaviour
         button.onClick.AddListener(() => OnButtonClickEvent(button, x, y));
     }
 
+    // Butonlara eklenecek event
     private void OnButtonClickEvent(Button button, int x, int y)
     {
         button.transform.GetChild(0).gameObject.SetActive(true);

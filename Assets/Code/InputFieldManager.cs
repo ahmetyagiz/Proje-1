@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Bu kod InputField alanýný yönetir.
+/// </summary>
 public class InputFieldManager : MonoBehaviour
 {
     public TMP_InputField inputField;
